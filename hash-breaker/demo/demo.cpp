@@ -21,7 +21,7 @@ void demos( int argc, const char *argv[] ) {
 	// --- Test libraries ---
 	std::cout << std::endl;
 	//TestThreads();
-	TestException();
+	//TestException();
 	//TestHashes();
 	//TestSocket();
 	//TestFiles();
