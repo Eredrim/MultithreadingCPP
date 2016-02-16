@@ -1,30 +1,31 @@
 #include "Logger.h"
 #include "CDateTime.h"
+#include "CFileText.h"
 #include <iostream>
-#include <fstream>
 #include <sstream>
 #include "gMutex.h"
 
 Logger::Logger()
 {
+	this->file = new CFileText(this->path, EFileOpenMode::append);
+
 }
 
 Logger::~Logger()
 {
+	this->file->Close();
+	delete this->file;
 }
 
 void Logger::Log(std::string errType, std::string message) {
 	CDateTime now;
-	std::ofstream logfile;
 
 	std::stringstream logMessage;
 
 	logMessage << now.m_wDay << "/" << now.m_wMonth << "/" << now.m_wYear << " - " << errType << " - " << message << std::endl;
 
 	mu.Lock();
-	logfile.open(this->path, std::ios_base::app);
-	logfile << logMessage.str();
-	logfile.close();
+	this->file->AppendLine(logMessage.str());
 	mu.Unlock();
 }
 

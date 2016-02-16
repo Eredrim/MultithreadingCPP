@@ -2,8 +2,6 @@
 
 #include <iostream>
 #include <string>
-#include "CDateTime.h"
-#include <fstream>
 #include "gMutex.h"
 
 class Logger
@@ -12,6 +10,7 @@ private:
 	const std::string path = "hashbreaker.log";
 	gMutex mu;
 	void Log(std::string, std::string);
+	CFileText* file;
 public:
 	Logger();
 	~Logger();
